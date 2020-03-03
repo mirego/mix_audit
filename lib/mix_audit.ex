@@ -9,7 +9,7 @@ defmodule MixAudit do
     dependencies = MixAudit.Project.dependencies(path)
 
     # Generate a security report
-    report = MixAudit.Analysis.analyze(dependencies, advisories)
+    report = MixAudit.Audit.report(dependencies, advisories)
 
     # Print everything for now
     IO.inspect(report)

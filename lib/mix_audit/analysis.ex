@@ -1,5 +1,5 @@
-defmodule MixAudit.Analysis do
-  def analyze(dependencies, advisories) do
+defmodule MixAudit.Audit do
+  def report(dependencies, advisories) do
     vulnerabilities =
       Enum.reduce(dependencies, [], fn dependency, memo ->
         advisories
