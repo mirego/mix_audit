@@ -27,8 +27,13 @@ defmodule MixAudit.MixProject do
       ],
       package: package(),
       start_permanent: false,
-      deps: deps()
+      deps: deps(),
+      escript: escript()
     ]
+  end
+
+  def escript do
+    [main_module: Mix.Tasks.Deps.Audit]
   end
 
   def application do

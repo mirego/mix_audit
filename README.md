@@ -9,6 +9,8 @@
 
 ## Installation
 
+### Project dependency
+
 Add `mix_audit` to the `deps` function in your project’s `mix.exs` file:
 
 ```elixir
@@ -22,12 +24,26 @@ end
 
 Then run `mix do deps.get, deps.compile` inside your project’s directory.
 
-You can also use `mix archive.install hex mix_audit` to install the package as standalone.
+### Local `escript`
+
+If you do not wish to include `mix_audit` in your application, you can install it as an `escript`
+
+```bash
+$ mix escript.install hex mix_audit
+```
 
 ## Usage
 
+### Project dependency
+
 ```bash
-$ mix deps.audit
+$ mix deps.audit <path>
+```
+
+### Local `escript`
+
+```bash
+$ ./mix_audit <path>
 ```
 
 ## License
