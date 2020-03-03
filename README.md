@@ -36,7 +36,7 @@ The only difference is that instead of using the `mix deps.audit` task, you will
 
 ## Usage
 
-To produce a security report, you can use the `deps.audit` Mix task:
+To generate a security report, you can use the `deps.audit` Mix task:
 
 ```bash
 $ mix deps.audit
