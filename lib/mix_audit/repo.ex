@@ -6,21 +6,7 @@ defmodule MixAudit.Repo do
 
     package_advisories_path()
     |> Path.wildcard()
-    |> Enum.map(fn advisory_path ->
-      {:ok, advisory_data} = YamlElixir.read_from_file(advisory_path)
-
-      %MixAudit.Advisory{
-        id: advisory_data["id"],
-        package: advisory_data["package"],
-        disclosure_date: advisory_data["disclosure_date"],
-        cve: advisory_data["cve"],
-        link: advisory_data["link"],
-        title: advisory_data["title"],
-        description: advisory_data["description"],
-        patched_versions: advisory_data["patched_versions"] || [],
-        unaffected_versions: advisory_data["unaffected_versions"] || []
-      }
-    end)
+    |> Enum.map(&map_advisory/1)
     |> Enum.group_by(& &1.package)
   end
 
@@ -43,5 +29,21 @@ defmodule MixAudit.Repo do
 
   defp package_advisories_path do
     Path.join([path(), "packages", "**", "*.yml"])
+  end
+
+  defp map_advisory(advisory_path) do
+    {:ok, advisory_data} = YamlElixir.read_from_file(advisory_path)
+
+    %MixAudit.Advisory{
+      id: advisory_data["id"],
+      package: advisory_data["package"],
+      disclosure_date: advisory_data["disclosure_date"],
+      cve: advisory_data["cve"],
+      link: advisory_data["link"],
+      title: advisory_data["title"],
+      description: advisory_data["description"],
+      patched_versions: advisory_data["patched_versions"] || [],
+      unaffected_versions: advisory_data["unaffected_versions"] || []
+    }
   end
 end
