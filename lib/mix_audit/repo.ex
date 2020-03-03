@@ -11,15 +11,17 @@ defmodule MixAudit.Repo do
   end
 
   defp synchronize do
-    local_path = path()
+    repo_path = path()
 
-    if File.dir?(local_path) do
-      previous_wd = File.cwd!()
-      File.cd(local_path)
+    if File.dir?(repo_path) do
+      previous_path = File.cwd!()
+      File.cd(repo_path)
+
       System.cmd("git", ["pull", "--rebase", "--quiet", "origin", "master"])
-      File.cd(previous_wd)
+
+      File.cd(previous_path)
     else
-      System.cmd("git", ["clone", "--quiet", @url, local_path])
+      System.cmd("git", ["clone", "--quiet", @url, repo_path])
     end
   end
 

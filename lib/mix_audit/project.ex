@@ -4,8 +4,7 @@ defmodule MixAudit.Project do
   end
 
   defp lockfiles(path) do
-    Path.wildcard(Path.join(path, "mix.lock")) ++
-      Path.wildcard(Path.join(path, "apps/**/mix.lock"))
+    Path.wildcard(Path.join(path, "mix.lock")) ++ Path.wildcard(Path.join(path, "apps/**/mix.lock"))
   end
 
   defp map_lockfile_to_dependencies(lockfile) do
