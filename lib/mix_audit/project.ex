@@ -13,17 +13,15 @@ defmodule MixAudit.Project do
     Enum.map(data, &map_dependency(&1, lockfile))
   end
 
-  defp map_dependency(
-         {package, {_provider, _name, version, _checksum, _tools, _, _origin}},
-         lockfile
-       ) do
-    %MixAudit.Dependency{package: to_string(package), version: version, lockfile: lockfile}
+  defp map_dependency({package, {_, _, version, _, _, _, _}}, lockfile) do
+    do_map_dependency(package, version, lockfile)
   end
 
-  defp map_dependency(
-         {package, {_provider, _name, version, _checksum, _tools, _, _origin, _checksum_}},
-         lockfile
-       ) do
+  defp map_dependency({package, {_, _, version, _, _, _, _, _}}, lockfile) do
+    do_map_dependency(package, version, lockfile)
+  end
+
+  defp do_map_dependency(package, version, lockfile) do
     %MixAudit.Dependency{package: to_string(package), version: version, lockfile: lockfile}
   end
 end
