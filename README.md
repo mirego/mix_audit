@@ -37,13 +37,13 @@ $ mix escript.install hex mix_audit
 ### Project dependency
 
 ```bash
-$ mix deps.audit path/to/project # default path is the current directory
+$ mix deps.audit /path/to/project # default path is the current directory
 ```
 
 ### Local `escript`
 
 ```bash
-$ ./mix_audit path/to/project # default path is the current directory
+$ ./mix_audit /path/to/project # default path is the current directory
 ```
 
 ## License
