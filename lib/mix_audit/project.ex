@@ -9,19 +9,40 @@ defmodule MixAudit.Project do
   end
 
   defp map_lockfile_to_dependencies(lockfile) do
-    {data, _} = Code.eval_file(lockfile)
-    Enum.map(data, &map_dependency(&1, lockfile))
+    lockfile
+    |> read_lockfile()
+    |> Map.values()
+    |> Enum.map(&map_dependency(&1, lockfile))
   end
 
-  defp map_dependency({package, {_, _, version, _, _, _, _}}, lockfile) do
+  defp read_lockfile(lockfile) do
+    opts = [file: lockfile, warn_on_unnecessary_quotes: false]
+
+    with {:ok, contents} <- File.read(lockfile),
+         assert_no_merge_conflicts_in_lockfile(lockfile, contents),
+         {:ok, quoted} <- Code.string_to_quoted(contents, opts),
+         {%{} = lock, _} <- Code.eval_quoted(quoted, [], opts) do
+      lock
+    else
+      _ -> []
+    end
+  end
+
+  defp map_dependency({_, package, version, _, _, _, _}, lockfile) do
     do_map_dependency(package, version, lockfile)
   end
 
-  defp map_dependency({package, {_, _, version, _, _, _, _, _}}, lockfile) do
+  defp map_dependency({_, package, version, _, _, _, _, _}, lockfile) do
     do_map_dependency(package, version, lockfile)
   end
 
   defp do_map_dependency(package, version, lockfile) do
     %MixAudit.Dependency{package: to_string(package), version: version, lockfile: lockfile}
+  end
+
+  defp assert_no_merge_conflicts_in_lockfile(lockfile, info) do
+    if String.contains?(info, ~w(<<<<<<< ======= >>>>>>>)) do
+      Mix.raise("Your #{lockfile} contains merge conflicts. Please resolve the conflicts and run the command again")
+    end
   end
 end
