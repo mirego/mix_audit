@@ -15,9 +15,24 @@ defmodule MixAudit.Audit do
     }
   end
 
-  def is_vulnerability?(_advisory, _dependency) do
-    # TODO: This is temporary for now :)
-    true
+  def is_vulnerability?(
+        %MixAudit.Advisory{
+          patched_versions: patched_versions,
+          unaffected_versions: unaffected_versions
+        },
+        %MixAudit.Dependency{version: version}
+      ) do
+    patched_version =
+      Enum.any?(patched_versions, fn version_requirement ->
+        Version.match?(version, version_requirement)
+      end)
+
+    unaffected_version =
+      Enum.any?(unaffected_versions, fn version_requirement ->
+        Version.match?(version, version_requirement)
+      end)
+
+    !patched_version && !unaffected_version
   end
 
   defp map_vulnerability(advisory, dependency) do

@@ -17,8 +17,8 @@ defmodule MixAudit.Repo do
         link: advisory_data["link"],
         title: advisory_data["title"],
         description: advisory_data["description"],
-        patched_versions: advisory_data["patched_versions"],
-        unaffected_versions: advisory_data["unaffected_versions"]
+        patched_versions: advisory_data["patched_versions"] || [],
+        unaffected_versions: advisory_data["unaffected_versions"] || []
       }
     end)
     |> Enum.group_by(& &1.package)
