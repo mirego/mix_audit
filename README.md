@@ -3,6 +3,10 @@
   <p><br />MixAudit provides a <code>mix deps.audit</code> task to scan Mix dependencies for security vulnerabilities.</p>
 </div>
 
+## Warning
+
+⚠️ **This project is currently under development, it is _not ready_ for production use yet.** ⚠️
+
 ## Installation
 
 Add `mix_audit` to the `deps` function in your project’s `mix.exs` file:
