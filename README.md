@@ -34,9 +34,19 @@ The only difference is that instead of using the `mix deps.audit` task, you will
 
 ## Usage
 
+To produce a security report, you can use the `deps.audit` Mix task:
+
 ```bash
-$ mix deps.audit /path/to/project # Default path is the current directory
+$ mix deps.audit
 ```
+
+You can also use the first argument to pass a project path to use (instead of the current directory):
+
+```bash
+$ mix deps.audit /path/to/project
+```
+
+For now, a full `%MixAudit.Report{}` struct is dumped to `stdout` — this will change in the future 🙂
 
 ## License
 
