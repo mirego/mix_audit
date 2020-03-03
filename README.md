@@ -24,6 +24,8 @@ end
 
 Then run `mix do deps.get, deps.compile` inside your project’s directory.
 
+### Local `escript`
+
 If you do not wish to include `mix_audit` in your project dependencies, you can install it as an `escript`:
 
 ```bash
