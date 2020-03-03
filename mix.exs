@@ -8,15 +8,7 @@ defmodule MixAudit.MixProject do
       app: :mix_audit,
       version: @version,
       elixir: "~> 1.9",
-      start_permanent: Mix.env() == :prod,
-      docs: [
-        extras: ["README.md"],
-        main: "readme",
-        source_ref: "v#{@version}",
-        source_url: "https://github.com/mirego/mix_audit"
-      ],
-      description:
-        "MixAudit provides a `mix deps.audit` task to scan Mix dependencies for security vulnerabilities.",
+      description: "MixAudit provides a `mix deps.audit` task to scan Mix dependencies for security vulnerabilities.",
       source_url: "https://github.com/mirego/mix_audit",
       homepage_url: "https://github.com/mirego/mix_audit",
       docs: [
@@ -25,15 +17,11 @@ defmodule MixAudit.MixProject do
         source_ref: "v#{@version}",
         source_url: "https://github.com/mirego/mix_audit"
       ],
-      package: package(),
       start_permanent: false,
+      package: package(),
       deps: deps(),
       escript: escript()
     ]
-  end
-
-  def escript do
-    [main_module: Mix.Tasks.Deps.Audit]
   end
 
   def application do
@@ -57,5 +45,9 @@ defmodule MixAudit.MixProject do
         "GitHub" => "https://github.com/mirego/mix_audit"
       }
     }
+  end
+
+  def escript do
+    [main_module: Mix.Tasks.Deps.Audit]
   end
 end
