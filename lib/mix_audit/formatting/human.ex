@@ -20,6 +20,7 @@ defmodule MixAudit.Formatting.Human do
     """
     #{colorized_text("Name:", :red)} #{vulnerability.dependency.package}
     #{colorized_text("Version:", :red)} #{vulnerability.dependency.version}
+    #{colorized_text("Lockfile:", :red)} #{vulnerability.dependency.lockfile}
     #{colorized_text("CVE:", :red)} #{vulnerability.advisory.cve}
     #{colorized_text("URL:", :red)} #{vulnerability.advisory.url}
     #{colorized_text("Title:", :red)} #{String.trim(vulnerability.advisory.title)}
