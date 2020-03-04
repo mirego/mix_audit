@@ -1,7 +1,12 @@
 defmodule MixAudit do
   require Logger
 
-  def scan(path) do
+  def scan(args) do
+    {opts, _, _} = OptionParser.parse(args, switches: [format: :string, path: :string])
+
+    path = Keyword.get(opts, :path, ".")
+    format = Keyword.get(opts, :format, "human")
+
     # Synchronize and get security advisories
     advisories = MixAudit.Repo.advisories()
 
@@ -11,8 +16,11 @@ defmodule MixAudit do
     # Generate a security report
     report = MixAudit.Audit.report(dependencies, advisories)
 
-    # Print everything for now
-    IO.puts(inspect(report))
+    # Format the report according to the specified format
+    formatted_report = MixAudit.Formatting.format(report, format)
+
+    # Output the result
+    IO.puts(String.trim(formatted_report))
 
     unless report.pass do
       System.halt(1)

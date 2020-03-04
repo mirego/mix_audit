@@ -41,7 +41,7 @@ defmodule MixAudit.Repo do
       package: advisory_data["package"],
       disclosure_date: advisory_data["disclosure_date"],
       cve: advisory_data["cve"],
-      link: advisory_data["link"],
+      url: advisory_data["link"],
       title: advisory_data["title"],
       description: advisory_data["description"],
       patched_versions: advisory_data["patched_versions"] || [],

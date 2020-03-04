@@ -41,13 +41,16 @@ To generate a security report, you can use the `deps.audit` Mix task:
 $ mix deps.audit
 ```
 
-You can also use the first argument to pass a project path to use (instead of the current directory):
+### Options
+
+| Option   | Type                       | Default             | Description                           |
+| -------- | -------------------------- | ------------------- | ------------------------------------- |
+| `path`   | String                     | _Current directory_ | The root path of the project to audit |
+| `format` | String (`json` \| `human`) | `human`             | The format of the report to generate  |
 
 ```bash
-$ mix deps.audit /path/to/project
+$ mix deps.audit --root=/Users/remi/Projects/elixir-boilerplate --format=json
 ```
-
-For now, a full `%MixAudit.Report{}` struct is dumped to `stdout` — this will change in the future 🙂
 
 ## License
 
