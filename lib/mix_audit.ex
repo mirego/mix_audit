@@ -4,8 +4,9 @@ defmodule MixAudit do
   def scan(args) do
     {opts, _, _} = OptionParser.parse(args, switches: [format: :string, path: :string])
 
-    path = Keyword.get(opts, :path, ".")
-    format = Keyword.get(opts, :format, "human")
+    # Get and sanitize options
+    path = Path.expand(Keyword.get(opts, :path, "."))
+    format = Keyword.get(opts, :format)
 
     # Synchronize and get security advisories
     advisories = MixAudit.Repo.advisories()
