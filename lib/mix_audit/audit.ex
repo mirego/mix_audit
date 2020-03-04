@@ -11,7 +11,7 @@ defmodule MixAudit.Audit do
 
     %MixAudit.Report{
       vulnerabilities: vulnerabilities,
-      pass: length(vulnerabilities) == 0
+      pass: Enum.empty?(vulnerabilities)
     }
   end
 

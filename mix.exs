@@ -33,7 +33,8 @@ defmodule MixAudit.MixProject do
   defp deps do
     [
       {:yaml_elixir, "~> 2.4.0"},
-      {:ex_doc, ">= 0.0.0", only: :dev}
+      {:ex_doc, ">= 0.0.0", only: :dev},
+      {:credo_naming, "~> 0.4", only: [:dev, :test], runtime: false}
     ]
   end
 

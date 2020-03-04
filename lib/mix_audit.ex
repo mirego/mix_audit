@@ -12,7 +12,7 @@ defmodule MixAudit do
     report = MixAudit.Audit.report(dependencies, advisories)
 
     # Print everything for now
-    IO.inspect(report)
+    IO.puts(inspect(report))
 
     unless report.pass do
       System.halt(1)
