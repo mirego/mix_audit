@@ -48,9 +48,9 @@ $ mix deps.audit
 | `path`   | String                     | _Current directory_ | The root path of the project to audit |
 | `format` | String (`json` \| `human`) | `human`             | The format of the report to generate  |
 
-```bash
-$ mix deps.audit --root=/Users/remi/Projects/elixir-boilerplate --format=json
-```
+## Example
+
+<img src="https://user-images.githubusercontent.com/11348/75885069-de864900-5df3-11ea-89ab-fed4fa082fee.png">
 
 ## License
 
