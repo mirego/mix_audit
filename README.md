@@ -1,6 +1,7 @@
 <div align="center">
   <img src="https://user-images.githubusercontent.com/11348/75812982-32921e80-5d5d-11ea-9c3b-ad46fd6005f9.png" width="500" />
-  <p><br />MixAudit provides a <code>mix deps.audit</code> task to scan Mix dependencies for security vulnerabilities.</p>
+  <br /><br />
+  <code>MixAudit</code> provides a <code>mix deps.audit</code> task to scan Mix dependencies for security vulnerabilities.
   <br /><br />
   <a href="https://hex.pm/packages/mix_audit"><img src="https://img.shields.io/hexpm/v/mix_audit.svg" /></a>
 </div>
