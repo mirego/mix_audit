@@ -1,11 +1,11 @@
 defmodule MixAudit.Formatting.Human do
   def format(report) do
     if report.pass do
-      "No vulnerabilities found."
+      colorized_text("No vulnerabilities found.", :green)
     else
       """
       #{map_vulnerabilities(report.vulnerabilities)}
-      Vulnerabilities found!
+      #{colorized_text("Vulnerabilities found!", :red)}
       """
     end
   end
@@ -18,12 +18,18 @@ defmodule MixAudit.Formatting.Human do
 
   defp map_vulnerability(vulnerability) do
     """
-    Name: #{vulnerability.dependency.package}
-    Version: #{vulnerability.dependency.version}
-    CVE: #{vulnerability.advisory.cve}
-    URL: #{vulnerability.advisory.url}
-    Title: #{String.trim(vulnerability.advisory.title)}
-    Patched versions: #{Enum.join(vulnerability.advisory.patched_versions, ", ")}
+    #{colorized_text("Name:", :red)} #{vulnerability.dependency.package}
+    #{colorized_text("Version:", :red)} #{vulnerability.dependency.version}
+    #{colorized_text("CVE:", :red)} #{vulnerability.advisory.cve}
+    #{colorized_text("URL:", :red)} #{vulnerability.advisory.url}
+    #{colorized_text("Title:", :red)} #{String.trim(vulnerability.advisory.title)}
+    #{colorized_text("Patched versions:", :red)} #{Enum.join(vulnerability.advisory.patched_versions, ", ")}
     """
+  end
+
+  defp colorized_text(string, color) do
+    [color, string, :reset]
+    |> IO.ANSI.format()
+    |> IO.chardata_to_string()
   end
 end
