@@ -5,8 +5,8 @@ defmodule Mix.Tasks.Deps.Audit do
   @moduledoc @shortdoc
 
   @doc false
-  defdelegate run(args), to: MixAudit, as: :scan
+  defdelegate run(args), to: MixAudit.CLI
 
   @doc false
-  defdelegate main(args), to: MixAudit, as: :scan
+  defdelegate main(args), to: MixAudit.CLI, as: :run
 end
