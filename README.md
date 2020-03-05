@@ -56,6 +56,17 @@ $ mix deps.audit
 
 <img src="https://user-images.githubusercontent.com/11348/75885069-de864900-5df3-11ea-89ab-fed4fa082fee.png">
 
+## How does it work?
+
+MixAudit builds two lists when it’s executed in a project:
+
+1. A list of security advisories fetched from the community-maintained [`elixir-security-advisories`](https://github.com/dependabot/elixir-security-advisories) repository
+2. A list of Mix dependencies from the various `mix.lock` files in the project
+
+Then, it loops through each project dependency and tries to find security advisories that apply to it (through its package name) and that match its version specification (through the advisory patched and unaffected version policies).
+
+If one is found, a **vulnerability** (the combination of a **security advisory** and a **project dependency**) is then reported.
+
 ## License
 
 `MixAudit` is © 2020 [Mirego](https://www.mirego.com) and may be freely distributed under the [New BSD license](http://opensource.org/licenses/BSD-3-Clause). See the [`LICENSE.md`](https://github.com/mirego/mix_audit/blob/master/LICENSE.md) file.
