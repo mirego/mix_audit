@@ -3,6 +3,7 @@
   <br /><br />
   <code>MixAudit</code> provides a <code>mix deps.audit</code> task to scan Mix dependencies for security vulnerabilities.
   <br /><br />
+  <a href="https://github.com/mirego/mix_audit/actions?query=workflow%3ACI+branch%3Amaster+event%3Apush"><img src="https://github.com/mirego/mix_audit/workflows/CI/badge.svg?branch=master&event=push" /></a>
   <a href="https://hex.pm/packages/mix_audit"><img src="https://img.shields.io/hexpm/v/mix_audit.svg" /></a>
 </div>
 
