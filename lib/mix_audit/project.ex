@@ -23,7 +23,7 @@ defmodule MixAudit.Project do
          {%{} = lock, _} <- Code.eval_quoted(quoted, [], opts) do
       lock
     else
-      _ -> []
+      _ -> %{}
     end
   end
 
