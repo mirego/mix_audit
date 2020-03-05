@@ -2,7 +2,19 @@ defmodule MixAudit do
   require Logger
 
   def scan(args) do
-    {opts, _, _} = OptionParser.parse(args, switches: [format: :string, path: :string])
+    {opts, _, _} = OptionParser.parse(args, switches: [help: :boolean, format: :string, path: :string])
+
+    if opts[:help] do
+      IO.puts("Usage: mix deps.audit [options]")
+      IO.puts("")
+      IO.puts("Example: $ mix deps.audit --path=/home/projects/my_app --format=json")
+      IO.puts("")
+      IO.puts("Options:")
+      IO.puts("--path       The root path of the project to audit")
+      IO.puts("--format     The format of the report to generate (human, json)")
+      IO.puts("")
+      System.halt(0)
+    end
 
     # Get and sanitize options
     path = Path.expand(Keyword.get(opts, :path, "."))
