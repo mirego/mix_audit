@@ -2,6 +2,8 @@
   <img src="https://user-images.githubusercontent.com/11348/75812982-32921e80-5d5d-11ea-9c3b-ad46fd6005f9.png" width="500" />
   <br /><br />
   <code>MixAudit</code> provides a <code>mix deps.audit</code> task to scan Mix dependencies for security vulnerabilities.
+  <br />
+  It draw its inspiration from tools like <a href="https://docs.npmjs.com/cli/audit"><code>npm audit</code></a> and <a href="https://github.com/rubysec/bundler-audit"><code>bundler-audit</code></a>.
   <br /><br />
   <a href="https://github.com/mirego/mix_audit/actions?query=workflow%3ACI+branch%3Amaster+event%3Apush"><img src="https://github.com/mirego/mix_audit/workflows/CI/badge.svg?branch=master&event=push" /></a>
   <a href="https://hex.pm/packages/mix_audit"><img src="https://img.shields.io/hexpm/v/mix_audit.svg" /></a>
