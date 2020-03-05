@@ -65,7 +65,9 @@ MixAudit builds two lists when it’s executed in a project:
 
 Then, it loops through each project dependency and tries to find security advisories that apply to it (through its package name) and that match its version specification (through the advisory patched and unaffected version policies).
 
-If one is found, a **vulnerability** (the combination of a **security advisory** and a **project dependency**) is then reported.
+If one is found, a **vulnerability** (the combination of a **security advisory** and a **project dependency**) is then added to the report.
+
+The task will exit with a `0` status only if the report _passes_ (ie. it reports no vulnerabilities). Otherwise, it will exit with a `1` status.
 
 ## License
 
