@@ -58,7 +58,7 @@ $ mix deps.audit
 
 ## Example
 
-<img src="https://user-images.githubusercontent.com/11348/75885069-de864900-5df3-11ea-89ab-fed4fa082fee.png">
+<img src="https://user-images.githubusercontent.com/11348/76112291-ea1e6f00-5faf-11ea-8337-6656d765b7fc.png">
 
 ## How does it work?
 
