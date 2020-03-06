@@ -27,13 +27,15 @@ Then run `mix do deps.get, deps.compile` inside your project’s directory.
 
 ### Local `escript`
 
-If you do not wish to include `mix_audit` in your project dependencies, you can install it as an `escript`:
+If you do not wish to include `mix_audit` in your project dependencies, you can install it as global `escript`:
 
 ```bash
 $ mix escript.install hex mix_audit
+…
+* creating …/.mix/escripts/mix_audit
 ```
 
-The only difference is that instead of using the `mix deps.audit` task, you will have to use the `./mix_audit` executable.
+The only difference is that instead of using the `mix deps.audit` task, you will have to use the created executable.
 
 ## Usage
 
