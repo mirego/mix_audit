@@ -9,10 +9,6 @@
   <a href="https://hex.pm/packages/mix_audit"><img src="https://img.shields.io/hexpm/v/mix_audit.svg" /></a>
 </div>
 
-## Warning
-
-⚠️ **This project is currently under development, it is _not ready_ for production use yet.** ⚠️
-
 ## Installation
 
 ### Project dependency
