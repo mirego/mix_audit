@@ -49,10 +49,12 @@ $ mix deps.audit
 
 ### Options
 
-| Option     | Type                           | Default             | Description                           |
-| ---------- | ------------------------------ | ------------------- | ------------------------------------- |
-| `--path`   | String                         | _Current directory_ | The root path of the project to audit |
-| `--format` | String (`"json"` \| `"human"`) | `"human"`           | The format of the report to generate  |
+| Option                   | Type                           | Default             | Description                                     |
+| ------------------------ | ------------------------------ | ------------------- | ----------------------------------------------- |
+| `--path`                 | String                         | _Current directory_ | The root path of the project to audit           |
+| `--format`               | String (`"json"` \| `"human"`) | `"human"`           | The format of the report to generate            |
+| `--ignore-advisory-ids`  | String                         | `""`                | Comma-separated list of advisory IDs to ignore  |
+| `--ignore-package-names` | String                         | `""`                | Comma-separated list of package names to ignore |
 
 ## Example
 

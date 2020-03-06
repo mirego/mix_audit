@@ -3,6 +3,6 @@ defmodule MixAudit.RepoTest do
   doctest MixAudit.Repo
 
   test "advisories/0 returns a map of security advisories" do
-    assert is_map(MixAudit.Repo.advisories())
+    assert is_list(MixAudit.Repo.advisories())
   end
 end

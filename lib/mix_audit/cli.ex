@@ -3,6 +3,8 @@ defmodule MixAudit.CLI do
     {opts, _, _} =
       OptionParser.parse(args,
         switches: [
+          ignore_advisory_ids: :string,
+          ignore_package_names: :string,
           version: :boolean,
           help: :boolean,
           format: :string,

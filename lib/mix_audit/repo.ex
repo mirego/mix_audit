@@ -7,7 +7,6 @@ defmodule MixAudit.Repo do
     package_advisories_path()
     |> Path.wildcard()
     |> Enum.map(&map_advisory/1)
-    |> Enum.group_by(& &1.package)
   end
 
   defp synchronize do
