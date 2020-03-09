@@ -1,3 +1,4 @@
 %{
   "plug": {:hex, :plug, "1.9.0", "8d7c4e26962283ff9f8f3347bd73838e2413fbc38b7bb5467d5924f68f3a5a4a", [:mix], [{:mime, "~> 1.0", [hex: :mime, repo: "hexpm", optional: false]}, {:plug_crypto, "~> 1.0", [hex: :plug_crypto, repo: "hexpm", optional: false]}, {:telemetry, "~> 0.4", [hex: :telemetry, repo: "hexpm", optional: true]}], "hexpm", "9902eda2c52ada2a096434682e99a2493f5d06a94d6ac6bcfff9805f952350f1"},
+  "distrillery": {:git, "https://github.com/bitwalker/distillery.git", "6700edb017804e51aec14dedb8df888d1db4e63c", [ref: "6700edb017804e51aec14dedb8df888d1db4e63c"]}
 }
