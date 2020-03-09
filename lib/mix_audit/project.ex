@@ -12,6 +12,7 @@ defmodule MixAudit.Project do
     |> read_lockfile()
     |> Map.values()
     |> Enum.map(&map_dependency(&1, lockfile))
+    |> Enum.reject(&is_nil/1)
   end
 
   defp read_lockfile(lockfile) do
@@ -27,13 +28,15 @@ defmodule MixAudit.Project do
     end
   end
 
-  defp map_dependency({_, package, version, _, _, _, _}, lockfile) do
+  defp map_dependency({:hex, package, version, _, _, _, _}, lockfile) do
     do_map_dependency(package, version, lockfile)
   end
 
-  defp map_dependency({_, package, version, _, _, _, _, _}, lockfile) do
+  defp map_dependency({:hex, package, version, _, _, _, _, _}, lockfile) do
     do_map_dependency(package, version, lockfile)
   end
+
+  defp map_dependency(_, _), do: nil
 
   defp do_map_dependency(package, version, lockfile) do
     %MixAudit.Dependency{package: to_string(package), version: version, lockfile: lockfile}
