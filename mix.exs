@@ -7,7 +7,7 @@ defmodule MixAudit.MixProject do
     [
       app: :mix_audit,
       version: @version,
-      elixir: "~> 1.9",
+      elixir: "~> 1.8",
       description: "MixAudit provides a `mix deps.audit` task to scan a project Mix dependencies for known Elixir security vulnerabilities",
       source_url: "https://github.com/mirego/mix_audit",
       homepage_url: "https://github.com/mirego/mix_audit",

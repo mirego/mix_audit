@@ -5,14 +5,22 @@ on: [push, pull_request]
 jobs:
   ci:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        elixir-version: [1.10.x, 1.9.x, 1.8.x]
+        include:
+          - elixir-version: 1.10.x
+            otp-version: 22.x
+          - elixir-version: 1.9.x
+            otp-version: 21.x
+          - elixir-version: 1.8.x
+            otp-version: 20.x
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-elixir@v1
         with:
-          otp-version: 22.2
-          elixir-version: 1.10.0
-      - run: mix deps.get
-      - run: mix format --check-formatted
-      - run: mix compile --warnings-as-errors --force
-      - run: mix credo --strict
-      - run: mix test
+          otp-version: ${{matrix.otp-version}}
+          elixir-version: ${{matrix.elixir-version}}
+      - run: make dependencies
+      - run: make lint
+      - run: make test
