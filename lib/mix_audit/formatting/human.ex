@@ -24,7 +24,7 @@ defmodule MixAudit.Formatting.Human do
     #{colorized_text("CVE:", :red)} #{vulnerability.advisory.cve}
     #{colorized_text("URL:", :red)} #{vulnerability.advisory.url}
     #{colorized_text("Title:", :red)} #{String.trim(vulnerability.advisory.title)}
-    #{colorized_text("Patched versions:", :red)} #{Enum.join(vulnerability.advisory.patched_versions, ", ")}
+    #{colorized_text("Patched versions:", :red)} #{patched_versions(vulnerability.advisory.patched_versions)}
     """
   end
 
@@ -33,4 +33,7 @@ defmodule MixAudit.Formatting.Human do
     |> IO.ANSI.format()
     |> IO.chardata_to_string()
   end
+
+  defp patched_versions([]), do: "NONE"
+  defp patched_versions(versions), do: Enum.join(versions, ", ")
 end
