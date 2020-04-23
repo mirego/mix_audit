@@ -1,4 +1,5 @@
 defmodule MixAudit.Formatting do
+  @default_format MixAudit.Formatting.Human
   @formats %{
     "human" => MixAudit.Formatting.Human,
     "json" => MixAudit.Formatting.JSON
@@ -6,7 +7,7 @@ defmodule MixAudit.Formatting do
 
   def format(report, format) do
     @formats
-    |> Map.get(format, @formats["human"])
+    |> Map.get(format, @default_format)
     |> (& &1.format(report)).()
   end
 end
