@@ -17,4 +17,5 @@ jobs:
           otp-version: 24.x
           elixir-version: 1.12.x
       - run: mix deps.get
+      - run: mix compile --docs
       - run: mix hex.publish --yes
