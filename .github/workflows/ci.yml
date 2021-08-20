@@ -7,8 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        elixir-version: [1.10.x, 1.9.x, 1.8.x]
+        elixir-version: [1.12.x, 1.11.x, 1.10.x, 1.9.x, 1.8.x]
         include:
+          - elixir-version: 1.12.x
+            otp-version: 24.x
+          - elixir-version: 1.11.x
+            otp-version: 23.x
           - elixir-version: 1.10.x
             otp-version: 22.x
           - elixir-version: 1.9.x
@@ -17,10 +21,13 @@ jobs:
             otp-version: 20.x
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-elixir@v1
+      - uses: erlef/setup-beam@v1
         with:
           otp-version: ${{ matrix.otp-version }}
           elixir-version: ${{ matrix.elixir-version }}
       - run: make dependencies
       - run: make lint
       - run: make test
+      - run: mix hex.publish --dry-run
+        env:
+          HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
