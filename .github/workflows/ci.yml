@@ -30,4 +30,4 @@ jobs:
       - run: make test
       - run: mix hex.publish --dry-run
         env:
-          HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
+          HEX_API_KEY: DRYRUN
