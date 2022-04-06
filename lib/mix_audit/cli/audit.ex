@@ -27,9 +27,7 @@ defmodule MixAudit.CLI.Audit do
     # Output the result
     IO.puts(String.trim(formatted_report))
 
-    if report.pass do
-      System.halt(0)
-    else
+    unless report.pass do
       System.halt(1)
     end
   end
