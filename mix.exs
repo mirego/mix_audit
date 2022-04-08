@@ -42,7 +42,7 @@ defmodule MixAudit.MixProject do
   defp package do
     %{
       maintainers: ["Rémi Prévost"],
-      licenses: ["BSD-3"],
+      licenses: ["BSD-3-Clause"],
       links: %{
         "GitHub" => "https://github.com/mirego/mix_audit"
       }
