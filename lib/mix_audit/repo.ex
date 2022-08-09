@@ -42,7 +42,8 @@ defmodule MixAudit.Repo do
       url: advisory_data["link"],
       title: advisory_data["title"],
       description: advisory_data["description"],
-      vulnerable_version_ranges: advisory_data["vulnerable_version_ranges"]
+      vulnerable_version_ranges: advisory_data["vulnerable_version_ranges"],
+      first_patched_versions: advisory_data["first_patched_versions"]
     }
   end
 end

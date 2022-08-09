@@ -11,7 +11,7 @@ defmodule MixAudit.Formatting.Human do
   end
 
   defp map_vulnerabilities(vulnerabilities) do
-    Enum.map_join(vulnerabilities, &map_vulnerability/1, "\n")
+    Enum.map_join(vulnerabilities, "\n", &map_vulnerability/1)
   end
 
   defp map_vulnerability(vulnerability) do
@@ -21,7 +21,8 @@ defmodule MixAudit.Formatting.Human do
     #{colorized_text("Lockfile:", :red)} #{vulnerability.dependency.lockfile}
     #{colorized_text("URL:", :red)} #{vulnerability.advisory.url}
     #{colorized_text("Title:", :red)} #{String.trim(vulnerability.advisory.title)}
-    #{colorized_text("Patched versions:", :red)} #{patched_versions(vulnerability.advisory.patched_versions)}
+    #{colorized_text("Vulnerable versions:", :red)} #{versions(vulnerability.advisory.vulnerable_version_ranges)}
+    #{colorized_text("First patched versions:", :red)} #{versions(vulnerability.advisory.first_patched_versions)}
     """
   end
 
@@ -31,6 +32,6 @@ defmodule MixAudit.Formatting.Human do
     |> IO.chardata_to_string()
   end
 
-  defp patched_versions([]), do: "NONE"
-  defp patched_versions(versions), do: Enum.join(versions, ", ")
+  defp versions([]), do: "NONE"
+  defp versions(versions), do: Enum.join(versions, ", ")
 end
