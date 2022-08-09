@@ -1,5 +1,5 @@
 defmodule MixAudit.Repo do
-  @url "https://github.com/dependabot/elixir-security-advisories.git"
+  @url "https://github.com/mirego/elixir-security-advisories.git"
 
   def advisories do
     synchronize()
@@ -25,7 +25,7 @@ defmodule MixAudit.Repo do
   end
 
   defp path do
-    Path.join([System.get_env("HOME"), ".local", "share", "elixir-security-advisories"])
+    Path.join([System.get_env("HOME"), ".local", "share", "elixir-security-advisories-mirego"])
   end
 
   defp package_advisories_path do
@@ -43,8 +43,7 @@ defmodule MixAudit.Repo do
       url: advisory_data["link"],
       title: advisory_data["title"],
       description: advisory_data["description"],
-      patched_versions: advisory_data["patched_versions"] || [],
-      unaffected_versions: advisory_data["unaffected_versions"] || []
+      vulnerable_version_ranges: advisory_data["vulnerable_version_ranges"]
     }
   end
 end

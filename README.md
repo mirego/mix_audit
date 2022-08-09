@@ -62,10 +62,10 @@ $ mix deps.audit
 
 MixAudit builds two lists when it’s executed in a project:
 
-1. A list of security advisories fetched from the community-maintained [`elixir-security-advisories`](https://github.com/dependabot/elixir-security-advisories) repository
+1. A list of security advisories fetched from the GitHub-sourced [`elixir-security-advisories`](https://github.com/mirego/elixir-security-advisories) repository
 2. A list of Mix dependencies from the various `mix.lock` files in the project
 
-Then, it loops through each project dependency and tries to find security advisories that apply to it (through its package name) and that match its version specification (through the advisory patched and unaffected version policies).
+Then, it loops through each project dependency and tries to find security advisories that apply to it (through its package name) and that match its version specification (through the advisory vulnerable version ranges).
 
 If one is found, a **vulnerability** (the combination of a **security advisory** and a **project dependency**) is then added to the report.
 
