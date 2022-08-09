@@ -18,7 +18,7 @@ Add `mix_audit` to the `deps` function in your project’s `mix.exs` file:
 ```elixir
 defp deps do
   [
-    {:mix_audit, "~> 1.0", only: [:dev, :test], runtime: false}
+    {:mix_audit, "~> 2.0", only: [:dev, :test], runtime: false}
   ]
 end
 ```
