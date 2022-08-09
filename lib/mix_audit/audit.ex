@@ -17,8 +17,9 @@ defmodule MixAudit.Audit do
 
   defp is_vulnerability?(%MixAudit.Advisory{vulnerable_version_ranges: vulnerable_version_ranges}, %MixAudit.Dependency{version: version}) do
     Enum.any?(vulnerable_version_ranges, fn version_range ->
-      requirements = map_ranges_to_requirements(version_range)
-      Enum.all?(requirements, &Version.match?(version, &1))
+      version_range
+      |> map_ranges_to_requirements()
+      |> Enum.all?(&Version.match?(version, &1))
     end)
   end
 
