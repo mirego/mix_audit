@@ -3,7 +3,6 @@ defmodule MixAudit.Advisory do
   defstruct id: nil,
             package: nil,
             disclosure_date: nil,
-            cve: nil,
             url: nil,
             title: nil,
             description: nil,
