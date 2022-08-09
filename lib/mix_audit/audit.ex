@@ -15,11 +15,11 @@ defmodule MixAudit.Audit do
     }
   end
 
-  defp is_vulnerability?(%MixAudit.Advisory{patched_versions: patched_versions, unaffected_versions: unaffected_versions}, %MixAudit.Dependency{version: version}) do
-    patched_version = Enum.any?(patched_versions, &Version.match?(version, &1))
-    unaffected_version = Enum.any?(unaffected_versions, &Version.match?(version, &1))
-
-    !patched_version && !unaffected_version
+  defp is_vulnerability?(%MixAudit.Advisory{vulnerable_version_ranges: vulnerable_version_ranges}, %MixAudit.Dependency{version: version}) do
+    Enum.any?(vulnerable_version_ranges, fn version_range ->
+      requirements = map_ranges_to_requirements(version_range)
+      Enum.all?(requirements, &Version.match?(version, &1))
+    end)
   end
 
   defp map_vulnerability(advisory, dependency) do
@@ -27,5 +27,12 @@ defmodule MixAudit.Audit do
       advisory: advisory,
       dependency: dependency
     }
+  end
+
+  defp map_ranges_to_requirements(version_ranges) do
+    version_ranges
+    |> String.split(",")
+    |> Enum.map(&String.trim(&1))
+    |> Enum.map(&String.replace(&1, ~r/^=[^=]/, "=="))
   end
 end
