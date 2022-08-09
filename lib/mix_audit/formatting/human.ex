@@ -11,9 +11,7 @@ defmodule MixAudit.Formatting.Human do
   end
 
   defp map_vulnerabilities(vulnerabilities) do
-    vulnerabilities
-    |> Enum.map(&map_vulnerability/1)
-    |> Enum.join("\n")
+    Enum.map_join(vulnerabilities, &map_vulnerability/1, "\n")
   end
 
   defp map_vulnerability(vulnerability) do
