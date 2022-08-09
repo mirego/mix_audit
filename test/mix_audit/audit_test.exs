@@ -2,6 +2,8 @@ defmodule MixAudit.AuditTest do
   use ExUnit.Case
   doctest MixAudit.Audit
 
+  alias MixAudit.Audit
+
   test "report/2 includes vulnerabilities based on vulnerable version ranges" do
     dependencies = [
       %MixAudit.Dependency{
@@ -25,7 +27,7 @@ defmodule MixAudit.AuditTest do
       ]
     }
 
-    report = MixAudit.Audit.report(dependencies, advisories)
+    report = Audit.report(dependencies, advisories)
     [first_vulnerability | _] = report.vulnerabilities
 
     refute report.pass
@@ -57,7 +59,7 @@ defmodule MixAudit.AuditTest do
       ]
     }
 
-    report = MixAudit.Audit.report(dependencies, advisories)
+    report = Audit.report(dependencies, advisories)
     [first_vulnerability | _] = report.vulnerabilities
 
     refute report.pass
@@ -89,7 +91,7 @@ defmodule MixAudit.AuditTest do
       ]
     }
 
-    report = MixAudit.Audit.report(dependencies, advisories)
+    report = Audit.report(dependencies, advisories)
 
     assert report.pass
     assert report.vulnerabilities == []
