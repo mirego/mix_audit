@@ -16,7 +16,7 @@ defmodule MixAudit.AuditTest do
     advisories = %{
       "foo" => [
         %MixAudit.Advisory{
-          cve: "1",
+          id: "ABC-123",
           description: "Bar",
           title: "Foo",
           package: "foo",
@@ -31,7 +31,7 @@ defmodule MixAudit.AuditTest do
     [first_vulnerability | _] = report.vulnerabilities
 
     refute report.pass
-    assert first_vulnerability.advisory.cve == "1"
+    assert first_vulnerability.advisory.id == "ABC-123"
     assert first_vulnerability.dependency.package == "foo"
     assert first_vulnerability.dependency.version == "0.7.4"
   end
@@ -48,7 +48,7 @@ defmodule MixAudit.AuditTest do
     advisories = %{
       "foo" => [
         %MixAudit.Advisory{
-          cve: "1",
+          id: "ABC-123",
           description: "Bar",
           title: "Foo",
           package: "foo",
@@ -63,7 +63,7 @@ defmodule MixAudit.AuditTest do
     [first_vulnerability | _] = report.vulnerabilities
 
     refute report.pass
-    assert first_vulnerability.advisory.cve == "1"
+    assert first_vulnerability.advisory.id == "ABC-123"
     assert first_vulnerability.dependency.package == "foo"
     assert first_vulnerability.dependency.version == "0.7.4"
   end
@@ -80,7 +80,7 @@ defmodule MixAudit.AuditTest do
     advisories = %{
       "foo" => [
         %MixAudit.Advisory{
-          cve: "1",
+          id: "ABC-123",
           description: "Bar",
           title: "Foo",
           package: "foo",
