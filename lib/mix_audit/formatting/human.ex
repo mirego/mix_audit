@@ -21,6 +21,7 @@ defmodule MixAudit.Formatting.Human do
     #{colorized_text("Lockfile:", :red)} #{vulnerability.dependency.lockfile}
     #{colorized_text("URL:", :red)} #{vulnerability.advisory.url}
     #{colorized_text("Title:", :red)} #{String.trim(vulnerability.advisory.title)}
+    #{colorized_text("Severity:", :red)} #{vulnerability.advisory.severity}
     #{colorized_text("Vulnerable versions:", :red)} #{versions(vulnerability.advisory.vulnerable_version_ranges)}
     #{colorized_text("First patched versions:", :red)} #{versions(vulnerability.advisory.first_patched_versions)}
     """
