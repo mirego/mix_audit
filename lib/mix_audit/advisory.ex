@@ -7,5 +7,6 @@ defmodule MixAudit.Advisory do
             title: nil,
             description: nil,
             vulnerable_version_ranges: [],
-            first_patched_versions: []
+            first_patched_versions: [],
+            severity: nil
 end

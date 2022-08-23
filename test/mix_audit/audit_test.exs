@@ -22,7 +22,8 @@ defmodule MixAudit.AuditTest do
           package: "foo",
           disclosure_date: "1970-01-01",
           url: "https://example.com",
-          vulnerable_version_ranges: ["~> 0.7.2"]
+          vulnerable_version_ranges: ["~> 0.7.2"],
+          severity: "high"
         }
       ]
     }
@@ -32,6 +33,7 @@ defmodule MixAudit.AuditTest do
 
     refute report.pass
     assert first_vulnerability.advisory.id == "ABC-123"
+    assert first_vulnerability.advisory.severity == "high"
     assert first_vulnerability.dependency.package == "foo"
     assert first_vulnerability.dependency.version == "0.7.4"
   end
@@ -54,7 +56,8 @@ defmodule MixAudit.AuditTest do
           package: "foo",
           disclosure_date: "1970-01-01",
           url: "https://example.com",
-          vulnerable_version_ranges: ["> 0.7.2, < 0.7.9"]
+          vulnerable_version_ranges: ["> 0.7.2, < 0.7.9"],
+          severity: "high"
         }
       ]
     }
@@ -64,6 +67,7 @@ defmodule MixAudit.AuditTest do
 
     refute report.pass
     assert first_vulnerability.advisory.id == "ABC-123"
+    assert first_vulnerability.advisory.severity == "high"
     assert first_vulnerability.dependency.package == "foo"
     assert first_vulnerability.dependency.version == "0.7.4"
   end
@@ -86,7 +90,8 @@ defmodule MixAudit.AuditTest do
           package: "foo",
           disclosure_date: "1970-01-01",
           url: "https://example.com",
-          vulnerable_version_ranges: ["> 0.7.5, < 0.7.9", "= 0.7.3"]
+          vulnerable_version_ranges: ["> 0.7.5, < 0.7.9", "= 0.7.3"],
+          severity: "high"
         }
       ]
     }
