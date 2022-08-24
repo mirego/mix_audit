@@ -1,7 +1,7 @@
 defmodule MixAudit.MixProject do
   use Mix.Project
 
-  @version "2.0.0"
+  @version "2.0.1"
 
   def project do
     [
