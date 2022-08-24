@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## 2.010 (2022-08-23)
+
+### Updated
+
+- Add `severity` to output formats ([#14](https://github.com/mirego/mix_audit/pull/14))
+
+## 2.0.0 (2022-08-09)
+
+### Updated
+
+- Replace [`dependabot/elixir-security-advisories`](https://github.com/dependabot/elixir-security-advisories) with [`mirego/elixir-security-advisories`](https://github.com/mirego/elixir-security-advisories).
+
+## 1.0.1 (2022-04-07)
+
+### Added
+
+- Upgrade `publish` workflow to use Elixir 1.13
+
+## 1.0.0 (2021-08-20)
+
+- First official 1.x version
+
 ## 0.1.2 (2020-03-09)
 
 ### Added
