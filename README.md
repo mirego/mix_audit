@@ -71,6 +71,14 @@ If one is found, a **vulnerability** (the combination of a **security advisory**
 
 The task will exit with a `0` status only if the report _passes_ (ie. it reports no vulnerabilities). Otherwise, it will exit with a `1` status.
 
+## `mix deps.audit` vs. `mix hex.audit`
+
+Mix provides a [`mix hex.audit` task](https://hexdocs.pm/hex/Mix.Tasks.Hex.Audit.html). According to its documentation, `mix hex.audit` shows all dependencies that have been marked as retired.
+
+MixAudit provides a `mix deps.audit` task (similar to [`npm audit`](https://docs.npmjs.com/cli/audit) and [`bundler-audit`](https://github.com/rubysec/bundler-audit)) that scans dependencies for [reported security vulnerabilities](https://github.com/mirego/elixir-security-advisories).
+
+Both tasks are useful but they just don’t share the same purpose.
+
 ## License
 
 `MixAudit` is © 2020 [Mirego](https://www.mirego.com) and may be freely distributed under the [New BSD license](http://opensource.org/licenses/BSD-3-Clause). See the [`LICENSE.md`](https://github.com/mirego/mix_audit/blob/master/LICENSE.md) file.
