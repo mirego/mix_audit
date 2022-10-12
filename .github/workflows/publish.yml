@@ -9,7 +9,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     env:
-      HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
+      HEX_API_KEY: ${{ secrets.MIREGO_HEXPM_API_KEY }}
     steps:
       - uses: actions/checkout@v2
       - uses: erlef/setup-beam@v1
