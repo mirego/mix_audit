@@ -16,7 +16,7 @@ defmodule MixAudit.Repo do
       previous_path = File.cwd!()
       File.cd(repo_path)
 
-      System.cmd("git", ["pull", "--rebase", "--quiet", "origin", "master"])
+      System.cmd("git", ["pull", "--rebase", "--quiet", "origin", "main"])
 
       File.cd(previous_path)
     else
