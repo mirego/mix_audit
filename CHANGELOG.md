@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## 2.0.2 (2022-11-16)
+
+### Updated
+
+- Update default branch for the repository
+- Update [default branch reference](https://github.com/mirego/elixir-security-advisories/pull/4) for elixir-security-advisories
+
 ## 2.0.1 (2022-08-23)
 
 ### Updated
