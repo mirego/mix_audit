@@ -5,7 +5,7 @@
   <br />
   It draw its inspiration from tools like <a href="https://docs.npmjs.com/cli/audit"><code>npm audit</code></a> and <a href="https://github.com/rubysec/bundler-audit"><code>bundler-audit</code></a>.
   <br /><br />
-  <a href="https://github.com/mirego/mix_audit/actions?query=workflow%3ACI+branch%3Amaster+event%3Apush"><img src="https://github.com/mirego/mix_audit/workflows/CI/badge.svg?branch=master&event=push" /></a>
+  <a href="https://github.com/mirego/mix_audit/actions?query=workflow%3ACI+branch%3Amain"><img src="https://github.com/mirego/mix_audit/workflows/CI/badge.svg?branch=main" /></a>
   <a href="https://hex.pm/packages/mix_audit"><img src="https://img.shields.io/hexpm/v/mix_audit.svg" /></a>
 </div>
 
@@ -81,7 +81,7 @@ Both tasks are useful but they just don’t share the same purpose.
 
 ## License
 
-`MixAudit` is © 2020 [Mirego](https://www.mirego.com) and may be freely distributed under the [New BSD license](http://opensource.org/licenses/BSD-3-Clause). See the [`LICENSE.md`](https://github.com/mirego/mix_audit/blob/master/LICENSE.md) file.
+`MixAudit` is © 2020 [Mirego](https://www.mirego.com) and may be freely distributed under the [New BSD license](http://opensource.org/licenses/BSD-3-Clause). See the [`LICENSE.md`](https://github.com/mirego/mix_audit/blob/main/LICENSE.md) file.
 
 The detective hat logo is based on [this lovely icon by Vectors Point](https://thenounproject.com/term/detective/1883300), from The Noun Project. Used under a [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/) license.
 
