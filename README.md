@@ -37,6 +37,11 @@ $ mix escript.install hex mix_audit
 
 The only difference is that instead of using the `mix deps.audit` task, you will have to use the created executable.
 
+## Requirements
+
+- [Git](https://git-scm.com)
+- [Elixir](https://elixir-lang.org/) ~1.8
+
 ## Usage
 
 To generate a security report, you can use the `deps.audit` Mix task:
