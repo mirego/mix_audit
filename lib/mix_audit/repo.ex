@@ -16,7 +16,7 @@ defmodule MixAudit.Repo do
       previous_path = File.cwd!()
       File.cd(repo_path)
 
-      System.cmd("git", ["pull", "--rebase", "--quiet", "origin", "main"])
+      System.cmd("lgit", ["pull", "--rebase", "--quiet", "origin", "main"])
 
       File.cd(previous_path)
     else
@@ -24,7 +24,7 @@ defmodule MixAudit.Repo do
     end
   rescue
     _ ->
-      raise RuntimeError, message: "It looks like `git` is not installed. Please install it and run `mix deps.audit` again."
+      reraise RuntimeError, message: "It looks like `git` is not installed. Please install it and run `mix deps.audit` again."
   end
 
   defp path do
