@@ -7,15 +7,15 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       HEX_API_KEY: ${{ secrets.MIREGO_HEXPM_API_KEY }}
     steps:
       - uses: actions/checkout@v2
       - uses: erlef/setup-beam@v1
         with:
-          otp-version: 24.x
-          elixir-version: 1.13.x
+          otp-version: 25.x
+          elixir-version: 1.14.x
       - run: mix deps.get
       - run: mix compile --docs
       - run: mix hex.publish --yes
