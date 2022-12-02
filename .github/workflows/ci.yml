@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         elixir-version: [1.12.x, 1.11.x, 1.10.x, 1.9.x, 1.8.x]
