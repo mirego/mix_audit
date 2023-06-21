@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## 2.1.1 (2023-06-21)
+
+- Remove `rescue` in `Repo.synchronize/0` to avoid swallowing error messages that can be useful for debugging issues ([#23](https://github.com/mirego/mix_audit/pull/23))
+- Add support for Elixir 1.15 in workflows
+- Upgrade `ex_doc` and `earmark`
+- Update Credo configuration with recent checks
+
 ## 2.1.0 (2022-12-12)
 
 - Update `yaml_elixir` dependency to 2.9
