@@ -22,9 +22,6 @@ defmodule MixAudit.Repo do
     else
       System.cmd("git", ["clone", "--quiet", @url, repo_path])
     end
-  rescue
-    _ ->
-      reraise RuntimeError, message: "It looks like `git` is not installed. Please install it and run `mix deps.audit` again."
   end
 
   defp path do
