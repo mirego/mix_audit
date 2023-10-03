@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        elixir-version: [1.15.x, 1.14.x, 1.13.x, 1.12.x, 1.11.x, 1.10.x, 1.9.x, 1.8.x]
+        elixir-version: [1.15.x, 1.14.x, 1.13.x, 1.12.x]
         include:
           - elixir-version: 1.15.x
             otp-version: 26.x
@@ -17,14 +17,6 @@ jobs:
             otp-version: 25.x
           - elixir-version: 1.12.x
             otp-version: 24.x
-          - elixir-version: 1.11.x
-            otp-version: 23.x
-          - elixir-version: 1.10.x
-            otp-version: 22.x
-          - elixir-version: 1.9.x
-            otp-version: 21.x
-          - elixir-version: 1.8.x
-            otp-version: 20.x
     steps:
       - uses: actions/checkout@v2
       - uses: erlef/setup-beam@v1
