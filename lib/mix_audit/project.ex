@@ -16,7 +16,10 @@ defmodule MixAudit.Project do
   end
 
   defp read_lockfile(lockfile) do
-    opts = [file: lockfile, warn_on_unnecessary_quotes: false]
+    # Backwards compatibility: suppressing warnings needs to be done with two different options:
+    # - emit_warnings: from Elixir v1.16 onwards
+    # - warn_on_unnecessary_quotes: up to Elixir v1.15
+    opts = [file: lockfile, emit_warnings: false, warn_on_unnecessary_quotes: false]
 
     with {:ok, contents} <- File.read(lockfile),
          assert_no_merge_conflicts_in_lockfile(lockfile, contents),
