@@ -5,6 +5,7 @@ defmodule MixAudit.CLI do
         switches: [
           ignore_advisory_ids: :string,
           ignore_package_names: :string,
+          ignore_file: :string,
           version: :boolean,
           help: :boolean,
           format: :string,
