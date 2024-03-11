@@ -5,11 +5,13 @@ defmodule MixAudit.CLI.Audit do
     format = Keyword.get(opts, :format)
     ignored_advisory_ids = ignored_advisory_ids(opts)
     ignored_package_names = ignored_package_names(opts)
+    ignored_ids_from_file = ignored_ids_from_file(opts)
 
     # Synchronize and get security advisories
     advisories =
       MixAudit.Repo.advisories()
       |> Enum.reject(&(&1.id in ignored_advisory_ids))
+      |> Enum.reject(&(&1.id in ignored_ids_from_file))
       |> Enum.group_by(& &1.package)
 
     # Get project dependencies
@@ -44,5 +46,20 @@ defmodule MixAudit.CLI.Audit do
     |> Keyword.get(:ignore_package_names, "")
     |> String.split(",")
     |> Enum.map(&String.trim/1)
+  end
+
+  defp ignored_ids_from_file(opts) do
+    opts
+    |> Keyword.get(:ignore_file, ".mix-audit-skips")
+    |> File.read()
+    |> case do
+      {:ok, content} ->
+        content
+        |> String.split("\n")
+        |> Enum.reject(fn line -> String.starts_with?(line, "#") or line == "" end)
+
+      _ ->
+        []
+    end
   end
 end
