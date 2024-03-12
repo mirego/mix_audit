@@ -51,15 +51,8 @@ defmodule MixAudit.CLI.Audit do
   defp ignored_ids_from_file(opts) do
     opts
     |> Keyword.get(:ignore_file, ".mix-audit-skips")
-    |> File.read()
-    |> case do
-      {:ok, content} ->
-        content
-        |> String.split("\n")
-        |> Enum.reject(fn line -> String.starts_with?(line, "#") or line == "" end)
-
-      _ ->
-        []
-    end
+    |> File.read!()
+    |> String.split("\n")
+    |> Enum.reject(fn line -> String.starts_with?(line, "#") || String.trim(line) == "" end)
   end
 end
