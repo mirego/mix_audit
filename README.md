@@ -58,7 +58,7 @@ $ mix deps.audit
 | `--format`               | String | `"human"`           | The format of the report to generate (`"json"` or `"human"`) |
 | `--ignore-advisory-ids`  | String | `""`                | Comma-separated list of advisory IDs to ignore               |
 | `--ignore-package-names` | String | `""`                | Comma-separated list of package names to ignore              |
-| `--ignore-file`          | String | `.mix-audit-skips`  | Path of the ignore file                                      |
+| `--ignore-file`          | String | `""`                | Path of the ignore file                                      |
 
 ## Example
 
