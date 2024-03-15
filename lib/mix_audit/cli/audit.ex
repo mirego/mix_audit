@@ -54,7 +54,8 @@ defmodule MixAudit.CLI.Audit do
         []
 
       ignore_file ->
-        File.read!(ignore_file)
+        ignore_file
+        |> File.read!()
         |> String.split("\n")
         |> Enum.reject(fn line -> String.starts_with?(line, "#") || String.trim(line) == "" end)
     end
