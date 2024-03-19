@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## 2.1.3 (2024-03-18)
+
+- Add support for `--ignore-file` ([#27](https://github.com/mirego/mix_audit/pull/27))
+
 ## 2.1.2 (2024-01-08)
 
 - Add better support for Elixir 1.16, thank you @cgrothaus! ([#26](https://github.com/mirego/mix_audit/pull/26))
