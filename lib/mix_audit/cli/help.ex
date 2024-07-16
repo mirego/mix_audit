@@ -12,5 +12,7 @@ defmodule MixAudit.CLI.Help do
     IO.puts("--ignore-file           Path of the ignore file")
     IO.puts("")
     System.halt(0)
+
+    true
   end
 end
