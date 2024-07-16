@@ -4,7 +4,7 @@ defmodule MixAudit.Audit do
       Enum.reduce(dependencies, [], fn dependency, memo ->
         advisories
         |> Map.get(dependency.package, [])
-        |> Enum.filter(&is_vulnerability?(&1, dependency))
+        |> Enum.filter(&vulnerability?(&1, dependency))
         |> Enum.map(&map_vulnerability(&1, dependency))
         |> (&(memo ++ &1)).()
       end)
@@ -15,7 +15,7 @@ defmodule MixAudit.Audit do
     }
   end
 
-  defp is_vulnerability?(%MixAudit.Advisory{vulnerable_version_ranges: vulnerable_version_ranges}, %MixAudit.Dependency{version: version}) do
+  defp vulnerability?(%MixAudit.Advisory{vulnerable_version_ranges: vulnerable_version_ranges}, %MixAudit.Dependency{version: version}) do
     Enum.any?(vulnerable_version_ranges, fn version_range ->
       version_range
       |> map_ranges_to_requirements()
