@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: "hex"
+    directory: "/"
+    schedule:
+      interval: "weekly"
