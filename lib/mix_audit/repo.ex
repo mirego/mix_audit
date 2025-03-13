@@ -25,7 +25,7 @@ defmodule MixAudit.Repo do
   end
 
   defp path do
-    Path.join([System.get_env("HOME"), ".local", "share", "elixir-security-advisories-mirego"])
+    Path.join([System.user_home(), ".local", "share", "elixir-security-advisories-mirego"])
   end
 
   defp package_advisories_path do
