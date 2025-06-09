@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## 2.1.5 (2025-06-09)
+
+- Update dependencies
+- Use `System.stop/1` instead of `System.halt/1`
+- Use `System.user_home()` instead of `System.get_env("HOME")`
+
+## 2.1.4 (2024-07-16)
+
+- Update dependencies
+
 ## 2.1.3 (2024-03-18)
 
 - Add support for `--ignore-file` ([#27](https://github.com/mirego/mix_audit/pull/27))
