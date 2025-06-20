@@ -11,7 +11,7 @@ defmodule MixAudit.CLI.Help do
     IO.puts("--ignore-package-names  A comma-separated list of package names to ignore")
     IO.puts("--ignore-file           Path of the ignore file")
     IO.puts("")
-    System.stop(0)
+    System.halt(0)
 
     true
   end
