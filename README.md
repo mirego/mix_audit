@@ -23,7 +23,7 @@ defp deps do
 end
 ```
 
-Then run `mix do deps.get, deps.compile` inside your project’s directory.
+Then run `mix do deps.get + deps.compile` inside your project’s directory.
 
 ### Local `escript`
 
