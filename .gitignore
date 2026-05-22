@@ -22,3 +22,4 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 mix_audit-*.tar
 
+test/support/unfixed/

@@ -5,11 +5,12 @@ defmodule MixAudit.CLI.Audit do
     format = Keyword.get(opts, :format)
     ignored_advisory_ids = ignored_advisory_ids(opts)
     ignored_package_names = ignored_package_names(opts)
+    ignore_unfixed? = !!Keyword.get(opts, :ignore_unfixed)
 
     # Synchronize and get security advisories
     advisories =
       MixAudit.Repo.advisories()
-      |> Enum.reject(&(&1.id in ignored_advisory_ids))
+      |> Enum.reject(&(&1.id in ignored_advisory_ids or (ignore_unfixed? and &1.first_patched_versions in [nil, [], [nil]])))
       |> Enum.group_by(& &1.package)
 
     # Get project dependencies

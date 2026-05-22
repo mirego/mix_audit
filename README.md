@@ -59,6 +59,7 @@ $ mix deps.audit
 | `--ignore-advisory-ids`  | String | `""`                | Comma-separated list of advisory IDs to ignore               |
 | `--ignore-package-names` | String | `""`                | Comma-separated list of package names to ignore              |
 | `--ignore-file`          | String | `""`                | Path of the ignore file                                      |
+| `--ignore-unfixed`       | Boolean| `false`             | Ignore vulnerabilities that haven't been fixed yet           |
 
 ## Example
 

@@ -1,4 +1,5 @@
 defmodule MixAudit.CLI do
+  @moduledoc false
   def run(args) do
     {opts, _, _} =
       OptionParser.parse(args,
@@ -6,6 +7,7 @@ defmodule MixAudit.CLI do
           ignore_advisory_ids: :string,
           ignore_package_names: :string,
           ignore_file: :string,
+          ignore_unfixed: :boolean,
           version: :boolean,
           help: :boolean,
           format: :string,
