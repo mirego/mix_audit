@@ -4,7 +4,8 @@ defmodule MixAudit.Repo do
   def advisories do
     synchronize()
 
-    yaml_advisories() ++ MixAudit.HexAdvisories.advisories()
+    (yaml_advisories() ++ MixAudit.HexAdvisories.advisories())
+    |> Enum.uniq_by(&{&1.package, &1.id})
   end
 
   defp yaml_advisories do

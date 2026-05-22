@@ -47,4 +47,37 @@ defmodule MixAudit.HexAdvisoriesTest do
              }
            ] = HexAdvisories.map_package_advisories("altcha", releases, advisories)
   end
+
+  test "map_package_advisories/3 collapses aliased OSV records" do
+    releases = [
+      %{version: "1.0.0", advisory_indexes: [0]},
+      %{version: "1.1.0", advisory_indexes: [0, 1]},
+      %{version: "1.2.0", advisory_indexes: []}
+    ]
+
+    advisories = [
+      %{
+        id: "EEF-CVE-2026-39803",
+        aliases: ["CVE-2026-39803", "GHSA-9q9q-324x-93r2"],
+        severity: :SEVERITY_HIGH,
+        summary: "EEF record"
+      },
+      %{
+        id: "GHSA-9q9q-324x-93r2",
+        aliases: ["CVE-2026-39803", "EEF-CVE-2026-39803"],
+        severity: :SEVERITY_HIGH,
+        summary: "GHSA record"
+      }
+    ]
+
+    assert [
+             %MixAudit.Advisory{
+               id: "GHSA-9q9q-324x-93r2",
+               package: "bandit",
+               title: "GHSA record",
+               vulnerable_version_ranges: ["= 1.0.0", "= 1.1.0"],
+               first_patched_versions: ["1.2.0"]
+             }
+           ] = HexAdvisories.map_package_advisories("bandit", releases, advisories)
+  end
 end

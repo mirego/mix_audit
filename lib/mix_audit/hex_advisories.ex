@@ -12,8 +12,9 @@ defmodule MixAudit.HexAdvisories do
   def map_package_advisories(package, releases, advisories) do
     advisories
     |> Enum.with_index()
-    |> Enum.map(fn {advisory, index} ->
-      affected_versions = affected_versions(releases, index)
+    |> advisory_groups()
+    |> Enum.map(fn %{advisory: advisory, indexes: indexes} ->
+      affected_versions = affected_versions(releases, indexes)
 
       %MixAudit.Advisory{
         id: advisory_id(advisory),
@@ -23,11 +24,40 @@ defmodule MixAudit.HexAdvisories do
         title: field(advisory, :summary) || advisory_id(advisory),
         description: field(advisory, :summary) || "",
         vulnerable_version_ranges: Enum.map(affected_versions, &"= #{&1}"),
-        first_patched_versions: first_patched_versions(releases, index, affected_versions),
+        first_patched_versions: first_patched_versions(releases, indexes, affected_versions),
         severity: severity(advisory)
       }
     end)
     |> Enum.reject(&Enum.empty?(&1.vulnerable_version_ranges))
+  end
+
+  defp advisory_groups(indexed_advisories) do
+    Enum.reduce(indexed_advisories, [], fn {advisory, index}, groups ->
+      identifiers = identifiers(advisory)
+
+      case Enum.find_index(groups, &same_advisory?(&1.identifiers, identifiers)) do
+        nil ->
+          [
+            %{
+              advisory: advisory,
+              identifiers: identifiers,
+              indexes: [index]
+            }
+            | groups
+          ]
+
+        group_index ->
+          List.update_at(groups, group_index, fn group ->
+            %{
+              group
+              | advisory: preferred_advisory(group.advisory, advisory),
+                identifiers: MapSet.union(group.identifiers, identifiers),
+                indexes: [index | group.indexes]
+            }
+          end)
+      end
+    end)
+    |> Enum.reverse()
   end
 
   defp package_advisories(config, package) do
@@ -47,33 +77,63 @@ defmodule MixAudit.HexAdvisories do
     |> Kernel.not()
   end
 
-  defp affected_versions(releases, advisory_index) do
+  defp same_advisory?(left, right), do: not MapSet.disjoint?(left, right)
+
+  defp identifiers(advisory) do
+    advisory
+    |> aliases()
+    |> MapSet.new()
+  end
+
+  defp aliases(advisory) do
+    [field(advisory, :id) | field(advisory, :aliases) || []]
+    |> Enum.reject(&is_nil/1)
+  end
+
+  defp preferred_advisory(left, right) do
+    cond do
+      ghsa_id?(field(left, :id)) -> left
+      ghsa_id?(field(right, :id)) -> right
+      true -> left
+    end
+  end
+
+  defp ghsa_id?(id) when is_binary(id), do: String.starts_with?(id, "GHSA-")
+  defp ghsa_id?(_id), do: false
+
+  defp affected_versions(releases, advisory_indexes) do
     releases
-    |> Enum.filter(&has_advisory_index?(&1, advisory_index))
+    |> Enum.filter(&has_advisory_index?(&1, advisory_indexes))
     |> Enum.map(&field(&1, :version))
   end
 
-  defp first_patched_versions(_releases, _advisory_index, []), do: []
+  defp first_patched_versions(_releases, _advisory_indexes, []), do: []
 
-  defp first_patched_versions(releases, advisory_index, affected_versions) do
+  defp first_patched_versions(releases, advisory_indexes, affected_versions) do
     highest_affected_version = Enum.max(affected_versions, Version)
 
     releases
-    |> Enum.reject(&has_advisory_index?(&1, advisory_index))
+    |> Enum.reject(&has_advisory_index?(&1, advisory_indexes))
     |> Enum.map(&field(&1, :version))
     |> Enum.filter(&(Version.compare(&1, highest_affected_version) == :gt))
     |> Enum.sort(Version)
     |> Enum.take(1)
   end
 
-  defp has_advisory_index?(release, advisory_index) do
+  defp has_advisory_index?(release, advisory_indexes) do
+    advisory_indexes = MapSet.new(advisory_indexes)
+
     release
     |> field(:advisory_indexes)
-    |> Enum.member?(advisory_index)
+    |> MapSet.new()
+    |> MapSet.disjoint?(advisory_indexes)
+    |> Kernel.not()
   end
 
   defp advisory_id(advisory) do
-    field(advisory, :id) || List.first(field(advisory, :aliases) || [])
+    aliases(advisory)
+    |> Enum.find(&ghsa_id?/1)
+    |> Kernel.||(field(advisory, :id) || List.first(field(advisory, :aliases) || []))
   end
 
   defp severity(advisory) do
