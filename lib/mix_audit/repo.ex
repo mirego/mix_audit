@@ -4,6 +4,10 @@ defmodule MixAudit.Repo do
   def advisories do
     synchronize()
 
+    yaml_advisories() ++ MixAudit.HexAdvisories.advisories()
+  end
+
+  defp yaml_advisories do
     package_advisories_path()
     |> Path.wildcard()
     |> Enum.map(&map_advisory/1)
