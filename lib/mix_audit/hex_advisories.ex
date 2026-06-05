@@ -32,32 +32,26 @@ defmodule MixAudit.HexAdvisories do
   end
 
   defp advisory_groups(indexed_advisories) do
-    Enum.reduce(indexed_advisories, [], fn {advisory, index}, groups ->
-      identifiers = identifiers(advisory)
+    grouped_advisories =
+      Enum.map(indexed_advisories, fn {advisory, index} ->
+        advisory
+        |> groupable_advisory()
+        |> Map.put(:mix_audit_advisory, advisory)
+        |> Map.put(:mix_audit_index, index)
+      end)
 
-      case Enum.find_index(groups, &same_advisory?(&1.identifiers, identifiers)) do
-        nil ->
-          [
-            %{
-              advisory: advisory,
-              identifiers: identifiers,
-              indexes: [index]
-            }
-            | groups
-          ]
+    grouped_advisories
+    |> :hex_advisory.group_for_display()
+    |> Enum.map(fn grouped_advisory ->
+      identifiers = identifiers(grouped_advisory)
 
-        group_index ->
-          List.update_at(groups, group_index, fn group ->
-            %{
-              group
-              | advisory: preferred_advisory(group.advisory, advisory),
-                identifiers: MapSet.union(group.identifiers, identifiers),
-                indexes: [index | group.indexes]
-            }
-          end)
-      end
+      indexes =
+        grouped_advisories
+        |> Enum.filter(&(not MapSet.disjoint?(identifiers, identifiers(&1))))
+        |> Enum.map(& &1.mix_audit_index)
+
+      %{advisory: grouped_advisory.mix_audit_advisory, indexes: indexes}
     end)
-    |> Enum.reverse()
   end
 
   defp package_advisories(config, package) do
@@ -77,29 +71,35 @@ defmodule MixAudit.HexAdvisories do
     |> Kernel.not()
   end
 
-  defp same_advisory?(left, right), do: not MapSet.disjoint?(left, right)
-
   defp identifiers(advisory) do
     advisory
     |> aliases()
+    |> Enum.map(&to_binary_id/1)
     |> MapSet.new()
   end
 
   defp aliases(advisory) do
     [field(advisory, :id) | field(advisory, :aliases) || []]
+    |> Enum.map(&alias_id/1)
     |> Enum.reject(&is_nil/1)
   end
 
-  defp preferred_advisory(left, right) do
-    cond do
-      ghsa_id?(field(left, :id)) -> left
-      ghsa_id?(field(right, :id)) -> right
-      true -> left
-    end
+  defp groupable_advisory(advisory) do
+    %{
+      id: to_binary_id(field(advisory, :id)),
+      aliases: Enum.map(field(advisory, :aliases) || [], &to_binary_id/1)
+    }
   end
+
+  defp alias_id(%{id: id}), do: id
+  defp alias_id(%{"id" => id}), do: id
+  defp alias_id(id), do: id
 
   defp ghsa_id?(id) when is_binary(id), do: String.starts_with?(id, "GHSA-")
   defp ghsa_id?(_id), do: false
+
+  defp to_binary_id(id) when is_binary(id), do: id
+  defp to_binary_id(id), do: to_string(id)
 
   defp affected_versions(releases, advisory_indexes) do
     releases

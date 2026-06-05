@@ -74,7 +74,7 @@ defmodule MixAudit.HexAdvisoriesTest do
              %MixAudit.Advisory{
                id: "GHSA-9q9q-324x-93r2",
                package: "bandit",
-               title: "GHSA record",
+               title: "EEF record",
                vulnerable_version_ranges: ["= 1.0.0", "= 1.1.0"],
                first_patched_versions: ["1.2.0"]
              }
