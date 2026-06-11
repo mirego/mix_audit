@@ -10,6 +10,7 @@ defmodule MixAudit.CLI.Help do
     IO.puts("--ignore-advisory-ids   A comma-separated list of advisory IDs to ignore")
     IO.puts("--ignore-package-names  A comma-separated list of package names to ignore")
     IO.puts("--ignore-file           Path of the ignore file")
+    IO.puts("--fix                   Attempt to update vulnerable packages to a patched version")
     IO.puts("")
     System.halt(0)
 
