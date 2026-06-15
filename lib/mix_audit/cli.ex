@@ -13,14 +13,15 @@ defmodule MixAudit.CLI do
         ]
       )
 
-    if opts[:version] do
-      MixAudit.CLI.Version.run(opts)
-    end
+    cond do
+      opts[:version] ->
+        MixAudit.CLI.Version.run(opts)
 
-    if opts[:help] do
-      MixAudit.CLI.Help.run(opts)
-    end
+      opts[:help] ->
+        MixAudit.CLI.Help.run(opts)
 
-    MixAudit.CLI.Audit.run(opts)
+      true ->
+        MixAudit.CLI.Audit.run(opts)
+    end
   end
 end
