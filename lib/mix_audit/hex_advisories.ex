@@ -1,11 +1,13 @@
 defmodule MixAudit.HexAdvisories do
   def advisories(config \\ :hex_core.default_config()) do
-    with {:ok, {200, _headers, %{packages: packages}}} <- :hex_repo.get_versions(config) do
-      packages
-      |> Enum.filter(&has_advisories?/1)
-      |> Enum.flat_map(&package_advisories(config, field(&1, :name)))
-    else
-      _ -> []
+    case :hex_repo.get_versions(config) do
+      {:ok, {200, _headers, %{packages: packages}}} ->
+        packages
+        |> Enum.filter(&has_advisories?/1)
+        |> Enum.flat_map(&package_advisories(config, field(&1, :name)))
+
+      _ ->
+        []
     end
   end
 
@@ -131,9 +133,9 @@ defmodule MixAudit.HexAdvisories do
   end
 
   defp advisory_id(advisory) do
-    aliases(advisory)
-    |> Enum.find(&ghsa_id?/1)
-    |> Kernel.||(field(advisory, :id) || List.first(field(advisory, :aliases) || []))
+    Enum.find(aliases(advisory), &ghsa_id?/1) ||
+      field(advisory, :id) ||
+      List.first(field(advisory, :aliases) || [])
   end
 
   defp severity(advisory) do
