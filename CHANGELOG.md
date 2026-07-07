@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+- Fix advisory clone syncing breaking once its working tree is dirty (scope git to a subprocess; force-sync with `fetch` + `reset --hard`)
+
 ## 2.1.5 (2025-06-09)
 
 - Update dependencies

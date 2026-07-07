@@ -12,16 +12,9 @@ defmodule MixAudit.Repo do
   defp synchronize do
     repo_path = path()
 
-    if File.dir?(repo_path) do
-      previous_path = File.cwd!()
-      File.cd(repo_path)
-
-      System.cmd("git", ["pull", "--rebase", "--quiet", "origin", "main"])
-
-      File.cd(previous_path)
-    else
-      System.cmd("git", ["clone", "--quiet", @url, repo_path])
-    end
+    repo_path
+    |> git_commands(File.dir?(repo_path))
+    |> run_git_commands()
   end
 
   defp path do
@@ -46,5 +39,35 @@ defmodule MixAudit.Repo do
       first_patched_versions: advisory_data["first_patched_versions"],
       severity: advisory_data["severity"]
     }
+  end
+
+  defp git_commands(repo_path, repo_exists?) do
+    if repo_exists? do
+      # System.cmd's `cd` option scopes the working directory to the git child process, not
+      # the whole BEAM, so a concurrent process writing a relative path can't land files
+      # inside this clone.
+      #
+      # The clone is a throwaway mirror, so force-sync it to `origin/main` with `fetch` +
+      # `reset --hard`: it never aborts on a dirty or diverged working tree, and works on
+      # git 1.8 and up.
+      [
+        {["fetch", "--quiet", "origin", "main"], [cd: repo_path]},
+        {["reset", "--hard", "--quiet", "origin/main"], [cd: repo_path]}
+      ]
+    else
+      [{["clone", "--quiet", @url, repo_path], []}]
+    end
+  end
+
+  # Run each command in turn, stopping at the first failure: e.g. don't `reset --hard` onto
+  # origin/main if the `fetch` didn't land. A failure is non-fatal (the audit falls back to
+  # the advisories already on disk), so we stop rather than raise.
+  defp run_git_commands(commands) do
+    Enum.reduce_while(commands, :ok, fn {args, opts}, :ok ->
+      case System.cmd("git", args, opts) do
+        {_output, 0} -> {:cont, :ok}
+        {_output, _status} -> {:halt, :error}
+      end
+    end)
   end
 end
