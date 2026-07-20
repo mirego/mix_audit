@@ -60,6 +60,15 @@ $ mix deps.audit
 | `--ignore-package-names` | String | `""`                | Comma-separated list of package names to ignore              |
 | `--ignore-file`          | String | `""`                | Path of the ignore file                                      |
 
+> **Note:** The security advisories are fetched at runtime by cloning/pulling
+> the [advisory mirror](https://github.com/mirego/elixir-security-advisories)
+> into `~/.local/share/elixir-security-advisories-mirego`. There is no bundled
+> fallback, so if this synchronization fails (for example, the directory is not
+> writable or the network is unavailable) the audit would otherwise run against
+> an empty advisory set and report no vulnerabilities. To avoid passing
+> silently, mix_audit fails closed: it prints the git failure to stderr and
+> exits with a non-zero status instead.
+
 ## Example
 
 <img src="https://user-images.githubusercontent.com/11348/76112291-ea1e6f00-5faf-11ea-8337-6656d765b7fc.png">
