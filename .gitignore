@@ -22,3 +22,6 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 mix_audit-*.tar
 
+
+# ExUnit writes the folders of @tag :tmp_dir tests here.
+/tmp/

@@ -1,0 +1,3 @@
+%{
+  "jason": {:hex, :jason, "1.0.0", "x", [:mix], [], "hexpm", "y"},
+}
