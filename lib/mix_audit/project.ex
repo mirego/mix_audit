@@ -4,7 +4,12 @@ defmodule MixAudit.Project do
   end
 
   defp lockfiles(path) do
-    Path.wildcard(Path.join(path, "mix.lock")) ++ Path.wildcard(Path.join(path, "apps/**/mix.lock"))
+    # The project path is the working directory of the glob, so `[`, `{`, `*` and `?` in it are not glob syntax
+    cwd = String.to_charlist(path)
+
+    for glob <- [~c"mix.lock", ~c"apps/**/mix.lock"], lockfile <- :filelib.wildcard(glob, cwd) do
+      Path.join(path, lockfile)
+    end
   end
 
   defp map_lockfile_to_dependencies(lockfile) do

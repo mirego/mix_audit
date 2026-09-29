@@ -27,6 +27,20 @@ defmodule MixAudit.ProjectTest do
            ]
   end
 
+  @tag :tmp_dir
+  test "dependencies/1 reads the lockfiles of a path with glob characters", %{tmp_dir: tmp_dir} do
+    path = Path.join(tmp_dir, "project[1]{a}")
+    File.cp_r!("test/support", path)
+
+    packages =
+      path
+      |> MixAudit.Project.dependencies()
+      |> Enum.map(& &1.package)
+      |> Enum.sort()
+
+    assert packages == ["absinthe", "plug", "telemetry"]
+  end
+
   test "dependencies/1 returns an empty list for unknown path" do
     assert MixAudit.Project.dependencies("test/unknown") == []
   end
