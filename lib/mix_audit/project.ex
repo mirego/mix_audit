@@ -4,12 +4,21 @@ defmodule MixAudit.Project do
   end
 
   defp lockfiles(path) do
-    # The project path is the working directory of the glob, so `[`, `{`, `*` and `?` in it are not glob syntax
+    # The project path is the working directory of the glob, so `[`, `{`, `*`, `?` and `\` in it are not glob syntax.
+    # Unlike Path.wildcard/1, :filelib.wildcard/2 matches hidden files and folders, so we skip them.
     cwd = String.to_charlist(path)
 
-    for glob <- [~c"mix.lock", ~c"apps/**/mix.lock"], lockfile <- :filelib.wildcard(glob, cwd) do
+    for glob <- [~c"mix.lock", ~c"apps/**/mix.lock"],
+        lockfile <- :filelib.wildcard(glob, cwd),
+        not hidden?(lockfile) do
       Path.join(path, lockfile)
     end
+  end
+
+  defp hidden?(lockfile) do
+    lockfile
+    |> Path.split()
+    |> Enum.any?(&String.starts_with?(&1, "."))
   end
 
   defp map_lockfile_to_dependencies(lockfile) do
